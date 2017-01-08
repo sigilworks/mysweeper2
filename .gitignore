@@ -1,0 +1,18 @@
+
+# Mac OS X
+.DS_Store
+
+# Node libs
+node_modules
+
+# IntelliJ
+.idea
+*.iml
+
+.npmignore
+public/
+
+.project
+.settings
+*.log
+config/local*
