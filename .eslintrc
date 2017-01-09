@@ -1,65 +1,39 @@
-{
-  "globals": {
+ "globals": {
     "process": true,
-    "rootRequire": true,
-    "expect": true,
-    "cpLocalStorage": true //TODO: Where is this being set as a global?
   },
   "rules": {
-    "no-var": 0,
-    "no-unused-vars": 0,
-    "no-console": 0,
-    "no-process-env": 0,
 
+    "eqeqeq": ["error", "always", {"null": "ignore"}]   // require `===`, except for comparison with `null`
     "indent": ["error", 4, {"SwitchCase": 1}],
-    "react/jsx-indent-props": ["error", 4],
-    "react/jsx-boolean-value": ["error", "always"], // NOTE: this differs from ES
-
-
-
+    "max-len": ["off", 120], // needs developer intervention
+    "new-cap": "on",
+    "no-console": 0,        // no use of console
+    "no-param-reassign": "off",         // disallow reassignment of function parameters
+    "no-process-env": 0,    // no use of process.env
     "no-unneeded-ternary": "off",
-    // This has issues with statements like  import { UrlRoots } from 'constants/nav_link_constants';
-    // @see https://github.com/benmosher/eslint-plugin-import/issues/414
-    // @see https://github.com/benmosher/eslint-plugin-import/issues/394
-    "import/extensions": "off",
-    "jsx-a11y/tabindex-no-positive": "off",
+    "no-unused-vars": 0,
+    "no-var": 0,
 
-
-    /*
-     The following rules are disabled temporarily because we haven't had time to fix them just yet.
-
-     Note that some of these rules could introduce merge conflicts, and care should be taken when re-enabling so as
-     not to not disrupt the flow of features that are being actively developed.
-    */
-    "new-cap": "off",
+    "react/forbid-prop-types": "off",
+    "react/jsx-boolean-value": ["error", "always"], // NOTE: this differs from ES
     "react/jsx-closing-bracket-location": "off",
     "react/jsx-first-prop-new-line": "off",
-    "max-len": ["off", 120], // needs developer intervention
     "react/jsx-indent": "off",
-    "react/sort-comp": "off",
-    "react/no-unused-prop-types": "off",
-    "react/forbid-prop-types": "off",
-    "class-methods-use-this": "off",
-    "arrow-body-style": "off",
-    "no-else-return": "off",
-    "no-underscore-dangle": "off",
-    "jsx-a11y/no-static-element-interactions": "off",
+    "react/jsx-indent-props": ["error", 4],
     "react/no-unescaped-entities": "off",
-    "jsx-a11y/label-has-for": "off",
+    "react/no-unused-prop-types": "off",
     "react/prefer-stateless-function": "off",
+    // "react/sort-comp": "off", // ensure the order of the react methods in component class matches order of lifecycle
+
     "jsx-a11y/href-no-hash": "off",
-    "import/no-named-as-default": "off",
-    "import/prefer-default-export": "off",
-    "no-param-reassign": "off",
+    "jsx-a11y/label-has-for": "off",
+    "jsx-a11y/no-static-element-interactions": "off",
+    "jsx-a11y/tabindex-no-positive": "off",
+
+    // "import/extensions": "off",
     "import/no-extraneous-dependencies": "off",
-
-    "mocha/no-exclusive-tests": 0,
-    "mocha/no-skipped-tests": 0,
-    "mocha/handle-done-callback": 0,
-    "mocha/no-global-tests": 0,
-    "mocha/no-sibling-hooks": 0,
-    "mocha/no-mocha-arrows": 0
-
+    "import/no-named-as-default": "off",
+    // "import/prefer-default-export": "off",
+    
   },
   "extends": "eslint:recommended"
-}
