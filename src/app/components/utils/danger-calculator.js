@@ -25,12 +25,11 @@ export default class DangerCalculator {
         if (row >= 0 && cell >= 0) {
             const directions = _.keys(this.neighborhood),
 
-                  totalMines = _.reduce(directions, (total, direction) => {
-                    const vert = _.first(this.neighborhood[direction]),
-                          horiz = _.last(this.neighborhood[direction]),
+                totalMines = _.reduce(directions, (total, direction) => {
+                    const [vert, horiz] = this.neighborhood[direction],
                           neighbor = this.board.getSquareAt(row + vert, cell + horiz);
 
-                    if (neighbor && neighbor.isMined()) 
+                    if (neighbor && neighbor.isMined())
                         total++;
 
                     return total;

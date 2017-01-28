@@ -1,9 +1,9 @@
 const LinearCongruentialGenerator = require('./lib/lcgenerator'),
-       generator = new LinearCongruentialGenerator,
-       // get a random integer between 0 and the total number of squares in the board
-       getRandomNumber = (dimensions) =>  generator.rand() * (dimensions * dimensions) | 0;
+      generator = new LinearCongruentialGenerator,
+      // get a random integer between 0 and the total number of squares in the board
+      getRandomNumber = (dimensions) => generator.rand() * (dimensions * dimensions) | 0;
 
- export default class MineLayer {
+export default class MineLayer {
     constructor(mines = 0, dimensions = 0) {
         this.mines = mines;
         this.dimensions = dimensions;
@@ -18,10 +18,8 @@ const LinearCongruentialGenerator = require('./lib/lcgenerator'),
             if (!rands.includes(rnd))
                 rands.push(rnd);
             // ...otherwise, give it another go 'round:
-            else {
+            else
                 mines++;
-                continue;
-            }
         }
 
         return rands.map(rnd => {
@@ -30,8 +28,8 @@ const LinearCongruentialGenerator = require('./lib/lcgenerator'),
             //      row: ~~(12/9) //=>  row 1
             //      cell: 12 % 9  //=> cell 3
             const row = Math.floor(rnd / this.dimensions),
-                  cell = rnd % this.dimensions;
-            return [ row, cell ];
+                cell = rnd % this.dimensions;
+            return [row, cell];
         });
     }
- }
+}
