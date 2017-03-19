@@ -11,6 +11,7 @@ const runSequence = require('run-sequence');
 const _ = require('lodash');
 const less = require('gulp-less');
 const plumber = require('gulp-plumber');
+const watch = require('gulp-watch');
 const debugGulp = require('debug')('gulp');
 const config = require('config');
 const fs = require('fs');
@@ -40,11 +41,13 @@ const webpackReporter = (err, stats, cb = _.noop) => {
 };
 
 gulp.task('less', function() {
-    const lessEntries = ['./less/app.less'];
+    const lessEntries = ['./less/**/*.less'];
+
+    gulp.src(['./less/**/*.css'])
+        .pipe(gulp.dest('public/css/'));
 
     return gulp.src(lessEntries)
         .pipe(plumber({ errorHandler: function(err) {
-            console.log(err);
             this.emit('end');
         } }))
         .pipe(less())
@@ -52,8 +55,25 @@ gulp.task('less', function() {
         .pipe(gulp.dest('public/css/'));
 });
 
+gulp.task('fonts', function() {
+    return gulp.src(paths.fonts + '/*')
+               .pipe(gulp.dest(paths.build + '/fonts'));
+});
+
 gulp.task('watchLess', () => {
-    gulp.watch(['./less/*.less'], ['less']);
+    watch(['./less/**/*.less'], ['less']);
+});
+
+gulp.task('watchJs', () => {
+    watch(['./src/**/*.js']);
+});
+
+gulp.task('watchTemplates', () => {
+    watch(['./templates/**/*.html']);
+});
+
+gulp.task('watchConfig', () => {
+    watch(['./gulpfile.js', './webpack.config.js']);
 });
 
 gulp.task('clean', (cb) => {
@@ -65,16 +85,15 @@ gulp.task('statics', () => {
                .pipe(gulp.dest('public/'));
 });
 
-gulp.task('buildAssets', ['less']);
+gulp.task('buildAssets', ['less', 'fonts']);
 
 gulp.task('build', (cb) => {
-    runSequence('clean', ['buildWebpack', 'buildAssets', 'statics'], cb);
+    runSequence(['buildWebpack', 'buildAssets', 'statics'], cb);
 });
 
 gulp.task('buildWebpack', (cb) => {
     process.env.BUILD_TARGET_ENV = 'development';
     const webpackConfig = require('./webpack.config');
-
     debugGulp('Building with: ', JSON.stringify(webpackConfig, null, 4));
     webpack(webpackConfig).run(_.partialRight(webpackReporter, cb));
 });
@@ -92,7 +111,7 @@ gulp.task('watchWebpack', (cb) => {
 
 
 gulp.task('watch', (cb) => {
-    runSequence(['buildAssets', 'statics', 'watchLess', 'watchWebpack'], cb);
+    runSequence(['clean', 'build', 'buildAssets', 'statics', 'watchLess', 'watchJs', 'watchTemplates', 'watchConfig', 'watchWebpack'], cb);
 });
 
 gulp.task('lint', () => gulp.src(['./src/**/*.js'])
@@ -100,7 +119,7 @@ gulp.task('lint', () => gulp.src(['./src/**/*.js'])
         .pipe(eslint.format()));
 
 gulp.task('develop', () => {
-    runSequence('clean', 'buildAssets', 'statics', ['watch', 'watchLess']);
+    runSequence('clean', 'build', 'buildAssets', 'statics', ['watch', 'watchLess']);
 });
 
 gulp.task('default', ['develop']);

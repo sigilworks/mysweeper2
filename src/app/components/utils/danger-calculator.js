@@ -9,7 +9,7 @@ export default class DangerCalculator {
     get neighborhood() {
         return freeze({
             // distance in steps from this square:
-            //           vert. horz.
+            //           vert horz
             NORTH:      [  1,  0 ],
             NORTHEAST:  [  1,  1 ],
             EAST:       [  0,  1 ],
