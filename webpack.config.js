@@ -82,11 +82,13 @@ module.exports = {
         // root: nodeModulesDir,
         alias: {
             actions: path.join(__dirname, 'src/app/actions'),
+            components: path.join(__dirname, 'src/app/components'),
             constants: path.join(__dirname, 'src/app/constants'),
             models: path.join(__dirname, 'src/app/models'),
             helpers: path.join(__dirname, 'src/app/helpers'),
             services: path.join(__dirname, 'src/app/services'),
             store: path.join(__dirname, 'src/app/store'),
+            lib: path.join(__dirname, 'src/lib')
         }
     },
     plugins: [
@@ -110,7 +112,7 @@ module.exports = {
             }
         }),
 
-        new ExtractTextPlugin('styles.css'),
+        new ExtractTextPlugin('styles.css')
     ]
 };
 

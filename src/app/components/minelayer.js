@@ -1,4 +1,4 @@
-const LinearCongruentialGenerator = require('./lib/lcgenerator'),
+const { LinearCongruentialGenerator } = require('lib'),
       generator = new LinearCongruentialGenerator,
       // get a random integer between 0 and the total number of squares in the board
       getRandomNumber = (dimensions) => generator.rand() * (dimensions * dimensions) | 0;
