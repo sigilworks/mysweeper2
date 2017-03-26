@@ -24,8 +24,6 @@ const entry = {
     app: './src/app/mysweeper.js',
 };
 
-console.log('basePath: %j', basePath);
-
 
 module.exports = {
     context: path.resolve(__dirname, '.'),
@@ -47,11 +45,11 @@ module.exports = {
             },
             {
                 test: /\.json/,
-                loader: 'json'
+                loader: 'json-loader'
             },
             {
                 test: /\.less$/,
-                loader: 'css!less',
+                loader: 'css-loader!less-loader',
                 include: includePaths
             },
             {
@@ -59,8 +57,8 @@ module.exports = {
                 // loader: 'css',
                 // loader: ExtractTextPlugin.extract("style-loader", "css-loader"),
                 use: ExtractTextPlugin.extract({
-                  fallback: "style-loader",
-                  use: "css-loader"
+                  use: "css-loader",
+                  fallback: "style-loader"
                 }),
                 include: includePaths
             }
@@ -79,7 +77,6 @@ module.exports = {
     },
     resolve: {
         extensions: ['.js', '.json'],
-        // root: nodeModulesDir,
         alias: {
             actions: path.join(__dirname, 'src/app/actions'),
             components: path.join(__dirname, 'src/app/components'),
