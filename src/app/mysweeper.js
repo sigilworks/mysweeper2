@@ -25,10 +25,10 @@ const ROOT_NODE = document.getElementById('app');
 
 render(
     <Provider store={store}>
-        <Router history={browserHistory}>
-            <Redirect from="/" to="/settings" />
+        <Router history={hashHistory}>
+            <Redirect from="/" to="/new" />
 
-            <Route path="/settings" component={Settings} />
+            <Route path="/new" component={Settings} />
         </Router>
     </Provider>,
 ROOT_NODE);

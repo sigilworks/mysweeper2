@@ -61,7 +61,7 @@ gulp.task('fonts', function() {
 });
 
 gulp.task('watchLess', () => {
-    watch(['./less/**/*.less'], ['less']);
+    watch(['./less/**/*.less', './less/**/*.css'], ['less']);
 });
 
 gulp.task('watchJs', () => {
